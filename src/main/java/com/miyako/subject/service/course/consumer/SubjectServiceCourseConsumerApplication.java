@@ -1,4 +1,4 @@
-package com.miyako.subject.service.course.consumer;
+package com.miyako.subject.service.user.consumer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
