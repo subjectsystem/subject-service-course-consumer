@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.miyako</groupId>
+        <artifactId>subject-dependencies</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../subject-dependencies/pom.xml</relativePath>
+    </parent>
+
+    <artifactId>subject-service-course-consumer</artifactId>
+    <packaging>jar</packaging>
+
+    <!--<url>http://www.funtl.com</url>-->
+    <!--<inceptionYear>2018-Now</inceptionYear>-->
+
+    <dependencies>
+        <!-- Spring Boot Starter Settings -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Projects Settings -->
+        <dependency>
+            <groupId>com.miyako</groupId>
+            <artifactId>subject-dubbo</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.miyako</groupId>
+            <artifactId>subject-static-backend</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.miyako</groupId>
+            <artifactId>subject-service-course-api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.miyako.subject.service.course.consumer.SubjectServiceCourseConsumerApplication</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
