@@ -18,52 +18,52 @@ services:
       v1: 1.0.0
 
 # Dubbo Config properties
-dubbo:
-  scan:
-    basePackages: com.miyako.subject.service.course.consumer.controller
-  ## ApplicationConfig Bean
-  application:
-    id: subject-service-course-consumer
-    name: subject-service-course-consumer
-  ## ProtocolConfig Bean
-  protocol:
-    id: dubbo
-    name: dubbo
-    serialization: kryo
-  ## RegistryConfig Bean
-  registry:
-    id: zookeeper
-    address: zookeeper://192.168.25.199:2181
-#    address: zookeeper://localhost:2181?backup=192.168.10.131:2182,192.168.10.131:2183
-
-# Dubbo Endpoint (default status is disable)
-endpoints:
-  dubbo:
-    enabled: true
-
-management:
-  server:
-    port: 8701
-  # Dubbo Health
-  health:
-    dubbo:
-      status:
-        ## StatusChecker Name defaults (default : "memory", "load" )
-        defaults: memory
-  # Enables Dubbo All Endpoints
-  endpoint:
-    dubbo:
-      enabled: true
-    dubbo-shutdown:
-      enabled: true
-    dubbo-configs:
-      enabled: true
-    dubbo-services:
-      enabled: true
-    dubbo-references:
-      enabled: true
-    dubbo-properties:
-      enabled: true
+#dubbo:
+#  scan:
+#    basePackages: com.miyako.subject.service.course.consumer.controller
+#  ## ApplicationConfig Bean
+#  application:
+#    id: subject-service-course-consumer
+#    name: subject-service-course-consumer
+#  ## ProtocolConfig Bean
+#  protocol:
+#    id: dubbo
+#    name: dubbo
+#    serialization: kryo
+#  ## RegistryConfig Bean
+#  registry:
+#    id: zookeeper
+#    address: zookeeper://127.0.0.1:2181
+##    address: zookeeper://localhost:2181?backup=192.168.10.131:2182,192.168.10.131:2183
+#
+## Dubbo Endpoint (default status is disable)
+#endpoints:
+#  dubbo:
+#    enabled: true
+#
+#management:
+#  server:
+#    port: 8701
+#  # Dubbo Health
+#  health:
+#    dubbo:
+#      status:
+#        ## StatusChecker Name defaults (default : "memory", "load" )
+#        defaults: memory
+#  # Enables Dubbo All Endpoints
+#  endpoint:
+#    dubbo:
+#      enabled: true
+#    dubbo-shutdown:
+#      enabled: true
+#    dubbo-configs:
+#      enabled: true
+#    dubbo-services:
+#      enabled: true
+#    dubbo-references:
+#      enabled: true
+#    dubbo-properties:
+#      enabled: true
   endpoints:
     web:
       exposure:

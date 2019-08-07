@@ -17,16 +17,20 @@ import java.util.List;
  * Date 2019-08-07-0007 13:49
  */
 @Controller
-@RequestMapping(value = "course")
+@RequestMapping(value = "/course")
 public class CourseController{
 
-    @Reference(version = "${services.versions.course.v1}")
+    @Reference
     private TbCourseService tbCourseService;
 
-    @GetMapping(value = "list")
+    @GetMapping(value = "/list")
     public String list(Model model) {
+        System.out.println("....");
         List<TbCourse> tbCourses = tbCourseService.selectAll();
         model.addAttribute("tbCourses", tbCourses);
+        for (TbCourse tbCourse : tbCourses) {
+            System.out.println(tbCourse.getTitle());
+        }
         return "course/list";
     }
 }
