@@ -13,4 +13,11 @@
 
     <dubbo:annotation package="com.miyako.subject.service.course.api"/>
 
+    <!--用户路由提供-->
+    <dubbo:protocol name="dubbo" port="20891"/>
+
+    <bean id="routeCourse" class="com.miyako.subject.service.course.consumer.route.RouteCourseServiceImpl"/>
+
+    <dubbo:service interface="com.miyako.subject.service.course.route.RouteCourseService" ref="routeCourse"/>
+
 </beans>
