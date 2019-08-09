@@ -2,14 +2,24 @@
 spring:
   application:
     name: subject-service-course-consumer
+
+  mvc:
+    static-path-pattern: /**
+
   thymeleaf:
     cache: false # 开发时关闭缓存,不然没法看到实时页面
     mode: LEGACYHTML5 # 用非严格的 HTML
     encoding: UTF-8
     servlet:
       content-type: text/html
+    suffix: .html
+
 server:
   port: 8601
+
+page:
+  size: 6
+
 
 # Services Versions
 services:

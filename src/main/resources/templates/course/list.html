@@ -2,11 +2,67 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <title>课程列表</title>
 </head>
 <body>
-<div th:each="courses : ${tbCourses}">
-    <div th:text="${courses.getTitle()}"></div>
-</div>
+<table>
+    <thead>
+    <tr>
+        <th><span>课程名</span></th>
+        <th><span>课程编号</span></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="course : ${pageInfo.getList()}">
+        <td th:text="${course.getTitle()}"></td>
+        <td th:text="${course.getCoursenum()}"></td>
+    </tr>
+    <!--导航条-->
+    <tr>
+        <input type="hidden" id="current" th:value="${currentIndex}"/>
+        <input type="hidden" id="max" th:value="${pageInfo.getPages()}"/>
+        <!--前一页-->
+        <td th:switch="${currentIndex}">
+            <a th:case="1" ></a>
+            <a id="pre" th:case="*" href="javascript:pre()">上一页</a>
+        </td>
+
+        <td>
+            <select id="page">
+                <option th:selected="${currentIndex eq i}"
+                        th:each="i:${#numbers.sequence(1,pageInfo.getPages())}" th:value="${i}" th:text="${i}"></option>
+            </select>
+            <button onclick="go()">跳转</button>
+        </td>
+
+        <!--后一页-->
+        <td th:switch="${currentIndex}">
+            <a th:case="${pageInfo.getPages()}" ></a>
+            <a id="next" th:case="*" href="javascript:next()">下一页</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
 </body>
+<script type="text/javascript">
+    function pre() {
+        let page = $("#current").val();
+        if(--page < 0){
+            page = 1;
+        }
+        window.location.href = "/course/list/" + page;
+    }
+    function next() {
+        let page = $("#current").val();
+        if(++page > $("#max").val()){
+            page--;
+        }
+        window.location.href = "/course/list/" + page;
+    }
+    function go() {
+        let page = $("#page").val();
+        window.location.href = "/course/list/" + page;
+    }
+</script>
 </html>

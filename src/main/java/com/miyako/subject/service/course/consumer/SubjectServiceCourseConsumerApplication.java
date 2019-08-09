@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.context.annotation.ImportResource;
@@ -16,7 +17,7 @@ import org.springframework.context.annotation.ImportResource;
  */
 @EnableHystrix
 @EnableHystrixDashboard
-@SpringBootApplication(scanBasePackages = "com.miyako.subject")
+@SpringBootApplication(scanBasePackages = "com.miyako.subject", exclude = DataSourceAutoConfiguration.class)
 @ImportResource(value = {"classpath:consumer.xml"})
 public class SubjectServiceCourseConsumerApplication{
 
