@@ -1,5 +1,5 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:>
 <head>
     <meta charset="UTF-8">
     <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
@@ -10,18 +10,26 @@
     <thead>
     <tr>
         <th><span>课程名</span></th>
+        <th><span>课程年级</span></th>
         <th><span>课程编号</span></th>
+        <th><span></span></th>
     </tr>
     </thead>
+    <form method="post" id="form_add">
+        <input type="hidden" name="_method" value="add"/>
+    </form>
     <tbody>
-    <tr th:each="course : ${pageInfo.getList()}">
-        <td th:text="${course.getTitle()}"></td>
-        <td th:text="${course.getCoursenum()}"></td>
+    <tr th:each="courseVo : ${pageDto.getData()}">
+        <td th:text="${courseVo.getCourse().getTitle()}"></td>
+        <td th:text="${courseVo.getGrade()}"></td>
+        <td th:text="${courseVo.getCourse().getCoursenum()}"></td>
+        <!--<td><a href="javascript:void(0)" th:οnclick= "'javascript:add('+${courseVo.getCourse().getId()}+')'" name="add_a">选课</a></td>-->
+        <td><button th:attr="add_url=@{/course/add/}+${courseVo.getCourse().getId()}" name="add_a">选课</button></td>
     </tr>
     <!--导航条-->
     <tr>
         <input type="hidden" id="current" th:value="${currentIndex}"/>
-        <input type="hidden" id="max" th:value="${pageInfo.getPages()}"/>
+        <input type="hidden" id="max" th:value="${pageDto.getPageNums()}"/>
         <!--前一页-->
         <td th:switch="${currentIndex}">
             <a th:case="1" ></a>
@@ -31,14 +39,14 @@
         <td>
             <select id="page">
                 <option th:selected="${currentIndex eq i}"
-                        th:each="i:${#numbers.sequence(1,pageInfo.getPages())}" th:value="${i}" th:text="${i}"></option>
+                        th:each="i:${#numbers.sequence(1,pageDto.getPageNums())}" th:value="${i}" th:text="${i}"></option>
             </select>
             <button onclick="go()">跳转</button>
         </td>
 
         <!--后一页-->
         <td th:switch="${currentIndex}">
-            <a th:case="${pageInfo.getPages()}" ></a>
+            <a th:case="${pageDto.getPageNums()}" ></a>
             <a id="next" th:case="*" href="javascript:next()">下一页</a>
         </td>
     </tr>
@@ -64,5 +72,33 @@
         let page = $("#page").val();
         window.location.href = "/course/list/" + page;
     }
+
+    function add(id){
+        $.ajax({
+            type: "post",
+            url: "/course/list/"+id,
+            contentType: 'application/json;charset=UTF-8',
+            success: function (r) {
+                alert(r)
+            }
+        })
+    }
+
+
+    $(function () {
+        $("button[name='add_a']").click(function () {
+            $("#form_add").prop("action", $(this).attr("add_url")).submit();
+        });
+
+        $("a[name='add_a']").click(function () {
+            alert($(this).attr("href"));
+            $.ajax({
+                url: $(this).attr("href"),
+                type: "POST",
+            })
+            // $("#form_add").prop("action", $(this).attr("href")).submit();
+        });
+    });
+
 </script>
 </html>
