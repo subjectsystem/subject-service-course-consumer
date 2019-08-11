@@ -33,7 +33,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
             logger.info("cookie token===>"+token);
             if(cookieToken == null){
                 //同样没有cookie，即未登录
-                return false;
+                return true;
             }
         }else{
             // 参数中有token，从登陆服务器过来
