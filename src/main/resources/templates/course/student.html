@@ -1,0 +1,106 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:>
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <title>选课名单</title>
+</head>
+<body>
+<div>
+    <span th:if="${#lists.isEmpty(students)}">该课程还没有人选</span>
+</div>
+<table th:if="${not #lists.isEmpty(students)}">
+    <thead>
+    <tr>
+        <th><span>姓名</span></th>
+        <th><span>性别</span></th>
+        <th><span>年纪</span></th>
+        <th><span>学院</span></th>
+    </tr>
+    </thead>
+    <form method="post" id="form_add">
+        <input type="hidden" name="_method" value="add"/>
+    </form>
+    <tbody>
+    <tr th:each="student : ${students}">
+        <td th:text="${student.getName()}"></td>
+        <td th:text="${student.getGender()==0}? '男':'女'"></td>
+        <td th:text="${student.getAge()}"></td>
+        <td th:text="${student.getCollegeid()}"></td>
+    </tr>
+    <!--导航条-->
+    <!--<tr>-->
+        <!--<input type="hidden" id="current" th:value="${currentIndex}"/>-->
+        <!--<input type="hidden" id="max" th:value="${pageDto.getPageNums()}"/>-->
+        <!--&lt;!&ndash;前一页&ndash;&gt;-->
+        <!--<td th:switch="${currentIndex}">-->
+            <!--<a th:case="1" ></a>-->
+            <!--<a id="pre" th:case="*" href="javascript:pre()">上一页</a>-->
+        <!--</td>-->
+
+        <!--<td>-->
+            <!--<select id="page">-->
+                <!--<option th:selected="${currentIndex eq i}"-->
+                        <!--th:each="i:${#numbers.sequence(1,pageDto.getPageNums())}" th:value="${i}" th:text="${i}"></option>-->
+            <!--</select>-->
+            <!--<button onclick="go()">跳转</button>-->
+        <!--</td>-->
+
+        <!--&lt;!&ndash;后一页&ndash;&gt;-->
+        <!--<td th:switch="${currentIndex}">-->
+            <!--<a th:case="${pageDto.getPageNums()}" ></a>-->
+            <!--<a id="next" th:case="*" href="javascript:next()">下一页</a>-->
+        <!--</td>-->
+    <!--</tr>-->
+    </tbody>
+</table>
+</body>
+<script type="text/javascript">
+    function pre() {
+        let page = $("#current").val();
+        if(--page < 0){
+            page = 1;
+        }
+        window.location.href = "/course/list/" + page;
+    }
+    function next() {
+        let page = $("#current").val();
+        if(++page > $("#max").val()){
+            page--;
+        }
+        window.location.href = "/course/list/" + page;
+    }
+    function go() {
+        let page = $("#page").val();
+        window.location.href = "/course/list/" + page;
+    }
+
+    function add(id){
+        $.ajax({
+            type: "post",
+            url: "/course/list/"+id,
+            contentType: 'application/json;charset=UTF-8',
+            success: function (r) {
+                alert(r)
+            }
+        })
+    }
+
+
+    $(function () {
+        $("button[name='add_a']").click(function () {
+            $("#form_add").prop("action", $(this).attr("add_url")).submit();
+        });
+
+        $("a[name='add_a']").click(function () {
+            alert($(this).attr("href"));
+            $.ajax({
+                url: $(this).attr("href"),
+                type: "POST",
+            })
+            // $("#form_add").prop("action", $(this).attr("href")).submit();
+        });
+    });
+
+</script>
+</html>

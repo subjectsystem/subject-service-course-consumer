@@ -16,6 +16,15 @@ public class CourseVo implements Serializable{
     private TbCourse course;
     private Integer grade;
     private TbTeacher teacher;
+    private Integer surplus;
+
+    public Integer getSurplus(){
+        return surplus;
+    }
+
+    public void setSurplus(Integer surplus){
+        this.surplus = surplus;
+    }
 
     public TbCourse getCourse(){
         return course;
@@ -47,6 +56,7 @@ public class CourseVo implements Serializable{
                "course=" + course +
                ", grade=" + grade +
                ", teacher=" + teacher +
+               ", surplus=" + surplus +
                '}';
     }
 }

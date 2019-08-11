@@ -6,12 +6,19 @@
     <title>课程列表</title>
 </head>
 <body>
+<div class="panel-body">
+    <span th:if="${student != null }" th:text="${student.getName()}"></span>
+    <span th:if="${student eq null}">您还没有登录，请登录后再操作</span>
+</div>
 <table>
     <thead>
     <tr>
         <th><span>课程名</span></th>
         <th><span>课程年级</span></th>
         <th><span>课程编号</span></th>
+        <th><span>总人数</span></th>
+        <th><span>可选人数</span></th>
+        <th><span></span></th>
         <th><span></span></th>
     </tr>
     </thead>
@@ -23,6 +30,9 @@
         <td th:text="${courseVo.getCourse().getTitle()}"></td>
         <td th:text="${courseVo.getGrade()}"></td>
         <td th:text="${courseVo.getCourse().getCoursenum()}"></td>
+        <td th:text="${courseVo.getCourse().getCoursecount()}"></td>
+        <td th:text="${courseVo.getSurplus()}"></td>
+        <td><a th:href="@{/course/student/}+${courseVo.getCourse().getId()}">查看人数</a></td>
         <!--<td><a href="javascript:void(0)" th:οnclick= "'javascript:add('+${courseVo.getCourse().getId()}+')'" name="add_a">选课</a></td>-->
         <td><button th:attr="add_url=@{/course/add/}+${courseVo.getCourse().getId()}" name="add_a">选课</button></td>
     </tr>
